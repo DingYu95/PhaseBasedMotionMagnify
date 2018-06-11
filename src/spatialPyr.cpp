@@ -19,6 +19,7 @@ spatialPyr::spatialPyr(Size srcSize, int numLevel):pyrLevel(numLevel) {
 void spatialPyr::buildLevel(Mat &srcImg, int filterIDX, Mat &dstImg) {
     // srcImg, pyrFilter are complex mat(2-channel)
     mulSpectrums(srcImg, pyrFilters[filterIDX], dstImg, 0);
+    idft(dstImg, dstImg, DFT_COMPLEX_OUTPUT|DFT_SCALE);
 }
 
 void spatialPyr::reconLevel(Mat &srcImg, int filterIDX, Mat &dstImg) {

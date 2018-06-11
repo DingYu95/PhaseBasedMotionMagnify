@@ -5,5 +5,5 @@ Currently, it has components for motion magnification, with some details not ful
 The biggest problem is that although the aim of re-writing is to achieve real-time processing as frame incoming, the computation cost is considerably greater than Eulerian magnification.
 
 TODOs:\
-[ ] Enable multi-threading.\
-[ ] Use GPU-API.
+- [ ] Enable multi-threading.\
+- [ ] Use GPU-API.

@@ -145,7 +145,7 @@ void spatialPyr::getFilters(vector<double> const &rVals, int orientations, int t
         Mat nanMask = Mat(filters[i] != filters[i]);
         if (countNonZero(nanMask) == 0)
             continue;
-        filters[i].setTo(cv::Scalar(0, 0), nanMask);
+        filters[i].setTo(cv::Scalar(0), nanMask);
     }
     // TODO(me): [optimization] use mask to denote non-zero, as in matlab code
 

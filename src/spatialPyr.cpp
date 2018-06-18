@@ -24,7 +24,7 @@ void spatialPyr::buildLevel(Mat &srcImg, int filterIDX, Mat &dstImg) {
 
 void spatialPyr::reconLevel(Mat &srcImg, int filterIDX, Mat &dstImg) {
     // srcImg is complex mat(2-channel)
-    dft(srcImg, dstImg);
+    dft(srcImg, dstImg, DFT_COMPLEX_OUTPUT|DFT_SCALE);
     multiply(dstImg, pyrFilters[filterIDX], dstImg, 2.0);
 }
 
@@ -139,6 +139,14 @@ void spatialPyr::getFilters(vector<double> const &rVals, int orientations, int t
     }
     filters[count] = loMask.clone();
 
+    // Check and reset nan numbers
+    // TODO(me): fix nans more properly
+    for (int i = 0; i < filters.size() - 1; i++) {
+        Mat nanMask = Mat(filters[i] != filters[i]);
+        if (countNonZero(nanMask) == 0)
+            continue;
+        filters[i].setTo(cv::Scalar(0, 0), nanMask);
+    }
     // TODO(me): [optimization] use mask to denote non-zero, as in matlab code
 
     // FFT_shift filter
